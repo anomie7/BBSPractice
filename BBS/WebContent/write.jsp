@@ -28,8 +28,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class= "action"><a href="main.jsp">메인</a></li>
-                <li><a href="bbs.jsp">게시판</a></li>
+                <li ><a href="main.jsp">메인</a></li>
+                <li class= "action"><a href="bbs.jsp">게시판</a></li>
             </ul>
 			<% if(userID == null){
 				
@@ -61,6 +61,28 @@
 			%>
         </div>
     </nav>
+    <div class="container">
+        <div class="row">
+        <form action="writeAction.jsp" method="post">
+        <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+        <thead>
+        	<tr>
+                <th colspan="2" style="background-color: #eeeeee; text-align: center">게시판 글쓰기 양식</th>
+            </tr>
+             </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" name="bbsTitle" class="form-control" placeholder="글 제목" maxlength="50"></td>
+                </tr>
+                <tr>
+                    <td><textarea name="bbsContent" class="form-control" placeholder="글 내용" maxlength="2048" style="height: 350px;"></textarea></td>
+                </tr>
+            </tbody>
+        	</table>
+          <input class="btn btn-primary pull-right" type="submit" value="글쓰기">
+        </form>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>

@@ -9,7 +9,6 @@
 <title>jsp 게시판 웹사이트</title>
 </head>
 <body>
-	<div class="container">
     <nav class="navbar navbar-default"f>
         <div>
             <button type="button" class="navbar-toggle collapsed"
@@ -54,7 +53,6 @@
             </form>
             </div>
         </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
 </body>
