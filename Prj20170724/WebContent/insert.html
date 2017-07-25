@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>회원 추가 페이지</title>
+</head>
+
+<body>
+	<script>
+		function check() {
+
+			if (form1.id.value == "" || form1.password.value == "" || form1.name.value == "" ||
+				form1.email.value == "") {
+				alert("입력되지 않은 값이 있습니다.")
+				return false
+			} else
+				return true;
+		}
+
+		function check_num(str) {
+			if (isNaN(str)) {
+				alert("숫자만 입력하세요.");
+				return "";
+			} else return str;
+		}
+	</script>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">데이터베이스 학습</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="main.html">Home</a></li>
+				<li><a href="create.jsp">테이블 만들기</a></li>
+				<li><a href="alter.jsp">테이블 수정하기</a></li>
+				<li><a href="insert.html">회원 추가하기</a></li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원 조회하기<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="selectAll.jsp">전체 회원 조회</a></li>
+						<li><a href="select.html">개별 회원 조회</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1>회원 추가</h1>
+			<form class="form-horizontal" action="insert.jsp" method="post" name="form1" onsubmit="return check();">
+				<div class="form-group">
+					<label class="control-label" for="myid">ID</label>
+					<input type="text" class="form-control" name="id" id="myid">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="pwd">암호</label>
+					<input type="password" class="form-control" name="password" id="pwd" onkeyup="this.value=check_num(this.value)">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="name">이름</label>
+					<input type="text" class="form-control" name="name" id="name">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="email">E-mail</label>
+					<input type="text" class="form-control" name="email" id="email">
+				</div>
+				<button class="btn btn-primary" type="submit">확인</button>
+				<button class="btn btn-primary" type="reset">다시 작성</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+<!-- 
+<form action="insert.jsp" method="post" name="form1" onsubmit = 'return check();'>
+		사용자 ID <input type="text" name="id" /><br> 
+		암호 <input type="password" name="password"
+			onkeyup= 'this.value=check_num(this.value)' /><br> 
+		이름 <input type="text" name="name" id="" /><br> 
+		E-mail<input type="text"  name="email" /><br>
+		<input type="submit" value="확인" /> 
+		<input type="reset" value="다시작성" />
+	</form>
+	 -->
