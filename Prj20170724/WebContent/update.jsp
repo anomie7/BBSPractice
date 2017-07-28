@@ -22,6 +22,8 @@
 		pstmt.setString(3, id);
 		pstmt.executeUpdate();
 		System.out.println("쿼리 실행");
+		
+		
 	}catch(SQLException e){
 		out.println(e.getMessage());
 	}
