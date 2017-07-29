@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>우편번호 검색</h1>
+            <p id="p1" class="help-block">찾고자하는 주소의 동/읍/면 이름을 입력하세요.</p>
+            <p>검색한 후 주소를 클릭하세요.</p>
+        </div>
+        <form name="zipcode" method="post" action="zipcode_search.jsp">
+            <div class="form-group">
+                <label for="zipcode1"></label>
+                <div class="input-group">
+                    <input class="form-control" type="text" id="zipcode1" name="" placeholder="동/읍/면 입력">
+                    <span class="input-group-btn">
+                    <button class="btn btn-success">찾기</button>
+                </span>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <tr>
+                <th>우편번호</th>
+                <th>주소</th>
+            </tr>
+            <tr>
+                <td>808-111</td>
+                <td>대구 수성구 만촌3동</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
