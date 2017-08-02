@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,18 +16,13 @@
 	String userid = (String) session.getAttribute("member_id");
 	String username = (String) session.getAttribute("member_name");
 	String oldpassword = (String) session.getAttribute("password");
-	
-	if(userid == null || username == null){
-	%>		
-		
-		<script>
-		alert("로그인해주세요.");
-		location.href = "index.jsp"
-		</script>
-	<%		
-	}
-
-	%>
+		%>		
+<c:if test="${null eq member_id}">
+<script>
+	alert("로그인해주세요.");
+	location.href = "index.jsp";
+</script>
+</c:if>
     <script>
         var form = document.modify;
         var pwdNotEqual;

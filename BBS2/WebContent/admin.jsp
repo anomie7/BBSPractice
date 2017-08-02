@@ -1,21 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%
 	String userid = (String) session.getAttribute("member_id");
 	String username = (String) session.getAttribute("member_name");
-	if (userid == null || username == null) {
 %>
-
+<c:if test="${null eq member_id}">
 <script>
 	alert("로그인해주세요.");
 	location.href = "index.jsp";
 </script>
-<%
-	}
-%>
+</c:if>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
