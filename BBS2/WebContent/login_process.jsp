@@ -8,6 +8,8 @@
 <%
  	String userid = request.getParameter("userid");
 	String password = request.getParameter("password");
+	
+	//모델
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -16,7 +18,7 @@
 	String name = null, email = null;
 	boolean bLogin = false;
 	try{
-		MySqlConn msc = new MySqlConn();
+		MySqlConn msc = new MySqlConn(); //DAO 객체의 getConnect 메소드로 대체
 		conn = MySqlConn.conn;
 		pstmt = conn.prepareStatement(SQL);
 		pstmt.setString(1, userid);
@@ -35,6 +37,7 @@
 			conn.close();
 	}
 	
+	//bLogin 대신 DAO에서 리턴값, 아래는 Controler 단
 	if(bLogin){
 		session.setAttribute("member_id", userid);
 		session.setAttribute("member_name", name);

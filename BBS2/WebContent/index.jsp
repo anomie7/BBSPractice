@@ -39,7 +39,7 @@
 		<div class="jumbotron">
 			<c:choose>
 				<c:when test="${null eq member_id }">
-					<form name="login" method="post" action="login_process.jsp">
+					<form name="login" method="post" action="/bbs/login">
 						<div class="form-group">
 							<label for="input1">회원ID</label> <input type="text"
 								class="form-control" id="input1" name="userid">
