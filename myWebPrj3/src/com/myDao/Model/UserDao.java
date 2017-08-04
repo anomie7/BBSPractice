@@ -152,4 +152,36 @@ public class UserDao {
 		}
 		return null;
 	}
+
+	public int updateUser(User user) {
+		String userid = user.getUserid();
+		String password =  user.getPassword();
+		String username = user.getUsername();
+		String email = user.getEmail();
+		String zipcode = user.getZipcode();
+		String address = user.getAddress();
+		String phone = user.getPhone();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int rs = 0;
+		final String SQL = "update member set username = ?, password = ?, email = ?, zipcode = ?, address = ?, phone = ? where userid = ?";
+		
+		try {
+			conn = getConnect();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.setString(3, email);
+			pstmt.setString(4, zipcode);
+			pstmt.setString(5, address);
+			pstmt.setString(6, phone);
+			pstmt.setString(7, userid);
+			rs = pstmt.executeUpdate();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return rs;
+	}
 }

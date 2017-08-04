@@ -14,23 +14,24 @@ import com.myDao.Model.User;
 import com.myDao.Model.UserDao;
 
 /**
- * Servlet implementation class SelectServlet
+ * Servlet implementation class ModifyServlet
  */
-@WebServlet("/Select")
-public class SelectServlet extends HttpServlet {
+@WebServlet("/Modify")
+public class ModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectServlet() { }
+    public ModifyServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//로그인 했는지 검사
-		//user 리턴 받아서 view로 forward
 		response.setContentType("text/html charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -42,8 +43,9 @@ public class SelectServlet extends HttpServlet {
 		UserDao userDao = new UserDao();
 		User user = userDao.getUser((String) session.getAttribute("userid"));
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("select.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("modify.jsp");
 									   request.setAttribute("user", user);
-		dispatcher.forward(request, response);							   
+		dispatcher.forward(request, response);			
 	}
+
 }

@@ -26,5 +26,11 @@ public class UserDaoTest {
 		UserDao userdao = new UserDao();
 		userdao.insertUser(TEST_USER);
 	}
+	
+	@Test
+	public void UpdateUser() {
+		UserDao userdao = new UserDao();
+		userdao.updateUser(new User("test", "test1", "test1", "test1", "test1", "test1", "test1", "test1"));
+	}
 
 }

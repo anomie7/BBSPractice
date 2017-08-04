@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="css/style.css" rel="stylesheet">
-<c:if test="${null eq member_id} ">
+<c:if test="${null eq sessionScope.userid} ">
 <script>
 	alert("로그인해주세요.");
 	location.href = "index.jsp";
@@ -30,7 +31,7 @@
 <script>
 	function deletechk() {
 		if (confirm("정말 삭제하시겠습니까??") == true) {
-			location.href = "delete.jsp"
+			location.href = "/Delete"
 		} else { //취소
 			return;
 		}
@@ -76,9 +77,9 @@
 				<tr class="col-md-9 col-md-offset-5">
 					<td class="btn-group"><a href="index.jsp"
 						class="btn btn-success">확인</a> <a
-						href="modify.jsp?email=${user.email }&zipcode=${user.zipcode }&address=${user.address}&phone=${user.phone}"
-						class="btn btn-info">수정</a> <a class="btn btn-danger"
-						onclick="deletechk()">회원탈퇴</a></td>
+						href="/Modify"
+						class="btn btn-info">수정</a> 
+						<a class="btn btn-danger" onclick="deletechk()">회원탈퇴</a></td>
 				</tr>
 			</table>
 		</div>
