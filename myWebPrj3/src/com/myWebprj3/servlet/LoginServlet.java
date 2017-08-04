@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.myDao.Model.UserDao;
-import com.myException.PasswordMissMatchException;
-import com.myException.UserNotFindException;
 
 /**
  * Servlet implementation class loginServlet

@@ -15,7 +15,7 @@ import com.myException.UserNotFindException;
 
 public class UserDao {
 
-	public static Connection getConnect() {
+	public static Connection getConnect() throws SQLException {
 		final String DRV = "com.mysql.jdbc.Driver";
 		final String url = "jdbc:mysql://localhost:3306/member";
 		final String ID = "root";
@@ -30,10 +30,11 @@ public class UserDao {
 			return conn;
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
+			return conn;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return conn;
 		}
-		return conn;
 	}
 
 	public boolean findByUserId(String userid, String password) throws Exception {
@@ -62,12 +63,10 @@ public class UserDao {
 				rs.close();
 			if (pstmt != null)
 				pstmt.close();
-			if (conn != null)
-				conn.close();
 		}
 	}
 	
-	public void insertUser(User user) {
+	public void insertUser(User user) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		final String SQL = "insert into member (userid ,username, password, securitynum, email, zipcode, address, phone, regedit)"
@@ -92,6 +91,13 @@ public class UserDao {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		}finally {
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
 		}
 	}
 
@@ -108,7 +114,7 @@ public class UserDao {
 		}
 	}
 
-	public int IdChecker(String userid) {
+	public int IdChecker(String userid) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -124,17 +130,33 @@ public class UserDao {
 		    return checkCount = rs.getInt("count");
 			}catch(SQLException e){
 				System.out.println(e.getMessage());
+				return checkCount;
+			}finally {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
 			}
-		return checkCount;
 	}
 
-	public User getUser(String userid) {
+	public User getUser(String userid) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		final String SQL = "select * from member where userid = ?";
 		
-		conn = getConnect();
+		try {
+			conn = getConnect();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userid);
@@ -147,11 +169,15 @@ public class UserDao {
 				return null;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return null;
+		}finally {
+			if(conn != null) {
+				conn.close();
+			}
 		}
-		return null;
 	}
 
-	public int updateUser(User user) {
+	public int updateUser(User user) throws SQLException {
 		String userid = user.getUserid();
 		String password =  user.getPassword();
 		String username = user.getUsername();
@@ -179,11 +205,18 @@ public class UserDao {
 			return rs;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return rs;
+		}finally {
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
 		}
-		return rs;
 	}
 
-	public int deleteUser(String userid) {
+	public int deleteUser(String userid) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		final String SQL = "delete from member where userid = ?";
@@ -197,10 +230,17 @@ public class UserDao {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return rs;
+		}finally {
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
 		}
 	}
 
-	public Collection<User> selectAllUser() {
+	public Collection<User> selectAllUser() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -219,7 +259,17 @@ public class UserDao {
 			return list;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
+			return null;
+		}finally {
+			if(rs != null) {
+				rs.close();
+			}
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
 		}
-		return null;
 	}
 }

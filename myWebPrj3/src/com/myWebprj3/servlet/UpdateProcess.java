@@ -2,6 +2,7 @@ package com.myWebprj3.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +46,13 @@ public class UpdateProcess extends HttpServlet {
 		
 		User user = new User((String) session.getAttribute("userid"), username, password, email, null, zipcode, address, phone);
 		UserDao userDao = new UserDao();
-		int rs = userDao.updateUser(user);
+		int rs = 0;
+		try {
+			rs = userDao.updateUser(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(rs == 0) {
 			PrintWriter out = response.getWriter();
 			out.println("<h1>업데이트에 실패하였습니다.</h1>");

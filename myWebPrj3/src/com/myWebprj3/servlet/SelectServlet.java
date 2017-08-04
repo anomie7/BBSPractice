@@ -1,6 +1,7 @@
 package com.myWebprj3.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +41,13 @@ public class SelectServlet extends HttpServlet {
 		}
 		
 		UserDao userDao = new UserDao();
-		User user = userDao.getUser((String) session.getAttribute("userid"));
+		User user = null;
+		try {
+			user = userDao.getUser((String) session.getAttribute("userid"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("select.jsp");
 									   request.setAttribute("user", user);

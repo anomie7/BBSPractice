@@ -2,6 +2,7 @@ package com.myWebprj3.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +36,12 @@ public class DeleteServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8"); 
 		
 		UserDao userDao = new UserDao();
-		int rs = userDao.deleteUser((String) session.getAttribute("userid"));
+		int rs = 0;
+		try {
+			rs = userDao.deleteUser((String) session.getAttribute("userid"));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		
 		if(rs == 0) {
 			PrintWriter out = response.getWriter();

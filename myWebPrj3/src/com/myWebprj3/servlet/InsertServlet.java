@@ -1,6 +1,8 @@
 package com.myWebprj3.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +38,11 @@ public class InsertServlet extends HttpServlet {
 		User user = new User(userid, username, password, email, securitynum, zipcode, address, phone);
 		
 		UserDao userDao = new UserDao();
-		userDao.insertUser(user);
+		try {
+			userDao.insertUser(user);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		response.sendRedirect("/");
 	}
 }

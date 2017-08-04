@@ -1,6 +1,7 @@
 package com.myWebprj3.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
@@ -35,7 +36,13 @@ public class SelectAllServlet extends HttpServlet {
 		response.setContentType("text.html charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		UserDao userDao = new UserDao();
-		Collection<User> list =  userDao.selectAllUser();
+		Collection<User> list = null;
+		try {
+			list = userDao.selectAllUser();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("selectAll.jsp");
 						  request.setAttribute("list", list);
