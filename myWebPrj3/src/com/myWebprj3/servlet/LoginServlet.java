@@ -2,7 +2,6 @@ package com.myWebprj3.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,13 +17,13 @@ import com.myException.UserNotFindException;
  * Servlet implementation class loginServlet
  */
 @WebServlet("/login")
-public class loginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public loginServlet() {
+	public LoginServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,21 +38,16 @@ public class loginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		String userid = request.getParameter("userid");
-		String password = request.getParameter("password");
 		PrintWriter out = response.getWriter();
+		UserDao userDao = new UserDao();
+		String result = userDao.login(request.getParameter("userid"), request.getParameter("password"));
+		System.out.println(result);
 		
-		try{
-			UserDao userDao = new UserDao();
-			userDao.findByUserId(userid, password);
-			session.setAttribute("member_id", userid);
-			out.println("로그인 성공");
-		}catch(PasswordMissMatchException e) {
-			out.println("비밀번호");
-		}catch(UserNotFindException e){
-			out.println("로그인 실패");
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
+		if(result.equals("로그인 성공")) {
+			session.setAttribute("userid", request.getParameter("userid"));
+			out.println(result);
+		}else {
+			out.println(result);
 		}
 	}
 }

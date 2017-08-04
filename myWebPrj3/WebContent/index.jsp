@@ -58,7 +58,7 @@
 	<div class="container col-md-3 col-md-offset-4">
 		<div class="jumbotron">
 			<c:choose>
-				<c:when test="${null eq member_id }">
+				<c:when test="${null eq userid }">
 					<form name="login" method="post" action="/login">
 						<div class="form-group">
 							<label for="input1">회원ID</label> <input type="text"
@@ -76,9 +76,9 @@
 				</c:when>
 				<c:otherwise>
 					<ul class="list-group">
-						<li class="list-group-item">${sessionScope.member_id}님환영합니다.</li>
+						<li class="list-group-item">${sessionScope.userid}님환영합니다.</li>
 						<li class="list-group-item"><a href="/logout">로그아웃</a></li>
-						<li class="list-group-item"><a href="select.jsp">개인 정보 조회</a></li>
+						<li class="list-group-item"><a href="/Select">개인 정보 조회</a></li>
 						<li class="list-group-item"><a href="admin.jsp">전체 회원 목록 조회</a></li>
 					</ul>
 				</c:otherwise>

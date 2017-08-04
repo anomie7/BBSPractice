@@ -1,10 +1,13 @@
 package com.myDao.Model;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.myException.PasswordMissMatchException;
 import com.myException.UserNotFindException;
@@ -63,5 +66,90 @@ public class UserDao {
 			if (conn != null)
 				conn.close();
 		}
+	}
+	
+	public void insertUser(User user) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		final String SQL = "insert into member (userid ,username, password, securitynum, email, zipcode, address, phone, regedit)"
+				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		java.util.Date yymmdd = new Date();
+		SimpleDateFormat myformat = new SimpleDateFormat("yy-MM-d h:mm a");
+		String regdate = myformat.format(yymmdd);
+		
+		try {
+			conn = UserDao.getConnect();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, user.getUserid());
+			pstmt.setString(2, user.getUsername());
+			pstmt.setString(3, user.getPassword());
+			pstmt.setString(4, user.getSecuritynum());
+			pstmt.setString(5, user.getEmail());
+			pstmt.setString(6, user.getZipcode());
+			pstmt.setString(7, user.getAddress());
+			pstmt.setString(8, user.getPhone());
+			pstmt.setString(9, regdate);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public String login(String userid, String password) {
+		try{
+			return findByUserId(userid, password) ? "로그인 성공" : "로그인 실패";
+		}catch(PasswordMissMatchException e) {
+			return "비밀번호";
+		}catch(UserNotFindException e){
+			return "로그인 실패";
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	public int IdChecker(String userid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		final String SQL = "select count(*) as count from member where userid = ?";
+		int checkCount = 0;
+		
+		try{
+			conn = getConnect();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			rs.next();
+		    return checkCount = rs.getInt("count");
+			}catch(SQLException e){
+				System.out.println(e.getMessage());
+			}
+		return checkCount;
+	}
+
+	public User getUser(String userid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		final String SQL = "select * from member where userid = ?";
+		
+		conn = getConnect();
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				return new User(rs.getString("userid"), rs.getString("username"), rs.getString("password"),
+					rs.getString("email"), rs.getString("securitynum"), rs.getString("zipcode"), rs.getString("address"), rs.getString("phone"));
+			else
+				return null;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 }
