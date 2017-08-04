@@ -4,11 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%
-	String userid = (String) session.getAttribute("member_id");
-	String username = (String) session.getAttribute("member_name");
-%>
-<c:if test="${null eq member_id}">
+<c:if test="${null eq userid}">
 <script>
 	alert("로그인해주세요.");
 	location.href = "index.jsp";
@@ -38,7 +34,7 @@
 		<p>전체 회원 조회를 위해 관리자 로그인을 해주세요.</p>
 	</div>
 	<div class="jumbotron">
-		<form name="join" action="selectAll.jsp" method="post" onsubmit="return chkadmin();">
+		<form name="join" action="/SelectAll" method="post" onsubmit="return chkadmin();">
 			<div class="form-group">
 				<label for="admin">관리자 비밀번호</label>
 				<div class="input-group">

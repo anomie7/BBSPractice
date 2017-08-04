@@ -1,34 +1,12 @@
-<%@page import="dbconn.MySqlConn"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<%
-	String searchaddr = request.getParameter("addr");
-	String zipcode;
-	String sido;
-	String gugun;
-	String dong;
-	String bunji;
-	String address;
-	final String SQL = "select * from zipcode where dong like ?";
-	
-	Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rs = null;
-	
-	try{
-		MySqlConn msc = new MySqlConn();
-		conn = MySqlConn.conn;
-		pstmt = conn.prepareStatement(SQL);
-		pstmt.setString(1, "%" + searchaddr + "%");
-		rs = pstmt.executeQuery();
-	}catch(SQLException e){
-		out.println(e.getMessage());
-	}
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%request.setCharacterEncoding("utf-8");
+  response.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +31,7 @@ function choiceZipcode(zipcodeno, address){
             <p id="p1" class="help-block">찾고자하는 주소의 동/읍/면 이름을 입력하세요.</p>
             <p>검색한 후 주소를 클릭하세요.</p>
         </div>
-        <form name="zipcode" method="post" action="zipcode_search.jsp">
+        <form name="zipcode" method="post" action="/ZipcodeSearch">
             <div class="form-group">
                 <label for="zipcode1"></label>
                 <div class="input-group">
@@ -70,24 +48,14 @@ function choiceZipcode(zipcodeno, address){
                 <th>우편번호</th>
                 <th>주소</th>
             </tr>
-            <%
-            	while(rs.next()){
-            		zipcode = rs.getString("zipcode");
-            		sido = rs.getString("sido");
-            		gugun = rs.getString("gugun");
-            		dong = rs.getString("dong");
-            		bunji = rs.getString("bunji");
-            		address = sido + " " + gugun + " " + dong + " " + bunji;
-            %>
+            <c:if test="${not empty list}">
+     			<c:forEach items="${list}" var="zip" varStatus="idx">	
 		            <tr>
-		                <td><a href="javascript:choiceZipcode('<%= zipcode %>', '<%= address %>')"><%= zipcode %></a></td>
-		                <td><a href="javascript:choiceZipcode('<%= zipcode %>', '<%= address %>')"><%= address %></a></td>
+		                <td><a href="javascript:choiceZipcode('${zip.zipcode }', '${zip.address }')">${zip.zipcode}</a></td>
+		                <td><a href="javascript:choiceZipcode('${zip.zipcode }', '${zip.address }')">${zip.address}</a></td>
 		            </tr>
-            <%
-            	}
-            
-            %>
-            
+		        </c:forEach>
+		        </c:if>
         </table>
     </div>
 </div>

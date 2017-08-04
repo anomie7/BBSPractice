@@ -3,6 +3,7 @@ package com.myDao.Model;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.Collection;
 
 import org.junit.Test;
 
@@ -37,5 +38,15 @@ public class UserDaoTest {
 	public void DeleteUser() {
 		UserDao userdao = new UserDao();
 		System.out.println(userdao.deleteUser(TEST_USER.getUserid()));
+	}
+	
+	@Test
+	public void SelectAll() {
+		UserDao userdao = new UserDao();
+		Collection<User> list = userdao.selectAllUser();
+		
+		for(User i : list) {
+			System.out.println(i.getUserid() + " " + i.getUsername() + " " + i.getZipcode());
+		}
 	}
 }

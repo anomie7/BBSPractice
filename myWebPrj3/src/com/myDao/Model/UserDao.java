@@ -1,20 +1,19 @@
 package com.myDao.Model;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import com.myException.PasswordMissMatchException;
 import com.myException.UserNotFindException;
 
 public class UserDao {
-
-	private static final Exception UserNotFindException = null;
 
 	public static Connection getConnect() {
 		final String DRV = "com.mysql.jdbc.Driver";
@@ -71,7 +70,6 @@ public class UserDao {
 	public void insertUser(User user) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		int rs = 0;
 		final String SQL = "insert into member (userid ,username, password, securitynum, email, zipcode, address, phone, regedit)"
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -91,7 +89,7 @@ public class UserDao {
 			pstmt.setString(7, user.getAddress());
 			pstmt.setString(8, user.getPhone());
 			pstmt.setString(9, regdate);
-			rs = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -200,5 +198,28 @@ public class UserDao {
 			System.out.println(e.getMessage());
 			return rs;
 		}
+	}
+
+	public Collection<User> selectAllUser() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		final String SQL = "select *from member";
+		
+		try {
+			conn = getConnect();
+			pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			Collection<User> list = new ArrayList<>();
+			while(rs.next()) {
+				User user = new User(rs.getString("userid"), rs.getString("username"), rs.getString("password"),
+						rs.getString("email"), rs.getString("securitynum"), rs.getString("zipcode"), rs.getString("address"), rs.getString("phone"));
+				list.add(user);
+			}
+			return list;
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 }
