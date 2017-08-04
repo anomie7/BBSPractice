@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("로그인 서블릿");
 		
 		PrintWriter out = response.getWriter();
 		UserDao userDao = new UserDao();

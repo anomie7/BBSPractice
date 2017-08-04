@@ -1,9 +1,6 @@
 package com.myWebprj3.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,19 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.myDao.Model.UserDao;
-
 /**
- * Servlet implementation class DeleteServlet
+ * Servlet implementation class logoutServlet
  */
-@WebServlet("/Delete")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +27,13 @@ public class DeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession();
-		response.setContentType("text/html; charset=UTF-8"); 
-		
-		UserDao userDao = new UserDao();
-		int rs = 0;
-		try {
-			rs = userDao.deleteUser((String) session.getAttribute("userid"));
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		if(rs == 0) {
-			PrintWriter out = response.getWriter();
-			out.println("<h1>삭제에 실패하였습니다.</h1>");
-			response.sendRedirect("/");
-		}else {
-			session.invalidate();
-			response.sendRedirect("/");
-		}
+		request.getSession(false);
+		session.invalidate();
+		response.sendRedirect("/");
 	}
+
+
 }
