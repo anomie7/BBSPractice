@@ -79,7 +79,7 @@
 						class="btn btn-success">확인</a> <a
 						href="/Modify"
 						class="btn btn-info">수정</a> 
-						<a class="btn btn-danger" onclick="deletechk()">회원탈퇴</a></td>
+					<a class="btn btn-danger" onclick="deletechk()">회원탈퇴</a></td>
 				</tr>
 			</table>
 		</div>

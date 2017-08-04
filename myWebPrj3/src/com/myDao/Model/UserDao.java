@@ -184,4 +184,21 @@ public class UserDao {
 		}
 		return rs;
 	}
+
+	public int deleteUser(String userid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		final String SQL = "delete from member where userid = ?";
+		int rs = 0;
+		try {
+			conn = getConnect();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeUpdate();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return rs;
+		}
+	}
 }

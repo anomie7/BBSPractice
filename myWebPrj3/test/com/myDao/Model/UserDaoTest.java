@@ -32,5 +32,10 @@ public class UserDaoTest {
 		UserDao userdao = new UserDao();
 		userdao.updateUser(new User("test", "test1", "test1", "test1", "test1", "test1", "test1", "test1"));
 	}
-
+	
+	@Test
+	public void DeleteUser() {
+		UserDao userdao = new UserDao();
+		System.out.println(userdao.deleteUser(TEST_USER.getUserid()));
+	}
 }
