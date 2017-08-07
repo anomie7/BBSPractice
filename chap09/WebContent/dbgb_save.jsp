@@ -39,4 +39,4 @@
 		out.print(e.getMessage());
 	}
 %>
-<% response.sendRedirect("dbgb_write.html"); %>
+<% response.sendRedirect("dbgb_show.jsp"); %>

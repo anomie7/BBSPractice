@@ -31,37 +31,46 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+		pre {border: 0; background-color: transparent;}
+	</style>
 </head>
 <body>
-<% while(rs.next()) {%>
 	<div class="container">
 		<div class="page-header">
-			<h2>블로그</h2>
+			<h2>조회</h2>
 		</div>
 		<div class="col-md-6 col-md-offset-3">
-			<form name="filegbwrite" method="post" action="dbgb_save.jsp">
-				<h3>조회</h3>
-				<div class="form-group">
-					<label for="input1">이름</label> 
-					<input type="text" class="form-control" id="input1" name="name" value="<%=rs.getString("name") %>">
-				</div>
-				<div class="form-group">
-					<label for="input2">E-mail</label>
-					 <input type="email" class="form-control" id="input2" name="email" value="<%=rs.getString("email") %>">
-				</div>
-				<div class="form-group">
-					<label for="input3">제목</label> 
-					<input type="text" class="form-control" id="input3" name="subject" value="<%=rs.getString("subject") %>">
-				</div>
-				<div class="form-group">
-					<label for="textarea1">내용</label>
-					<textarea class="form-control" id="textarea1" name="content"
-						rows="10" cols="40"><%=rs.getString("content")%></textarea>
-				</div>
-			</form>
+		<% while(rs.next()) {%>
+		 <table class="table table-striped">
+            <tr>
+                <td>이름</td>
+                <td><%=rs.getString("name") %></td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td><%= rs.getString("email") %></td>
+            </tr>
+            <tr>
+                <td>작성일</td>
+                <td><%= rs.getString("inputdate") %></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                <pre><code><%= rs.getString("content") %></code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+           </table>
+	<%} %>
 		</div>
 	</div>
-	<%} %>
+		<div class="text-center">
+			<a class="btn btn-primary" href="/chap09/dbgb_write.html">글쓰기</a>
+		</div>
 </body>
 
 </html>
