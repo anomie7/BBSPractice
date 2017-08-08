@@ -87,8 +87,6 @@
 				gb.setYmd(rs.getString("inputdate"));
 				list.add(gb);
 			}while(rs.next());
-		    
-			
 			totalrows = list.size();
 			totalpages = totalrows / maxrows;
 			if(totalrows % maxrows > 0) totalpages++;
@@ -98,6 +96,7 @@
 			if(endrow >= totalrows) endrow = totalrows -1;
 			totalgroup = (totalpages-1)/maxpages + 1;
 			if(endpage > totalpages) endpage = totalpages;
+			
 			for(int j = startrow; j <= endrow; j++){
 		%>
 		 <table class="table table-striped">
