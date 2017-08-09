@@ -1,3 +1,4 @@
+<%@page import="javax.websocket.MessageHandler.Whole"%>
 <%@page import="chap09_model.GuestBoardDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -8,7 +9,9 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-<%  List<GuestBoard> list = (List<GuestBoard>) request.getAttribute("list"); %>
+<%  List<GuestBoard> list = (List<GuestBoard>) request.getAttribute("list"); 
+	int start = (Integer) request.getAttribute("start");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +39,7 @@
 		 <table class="table table-striped">
             <tr>
                 <td>이름</td>
-                <td><%=g.getName() %></td>
+                <td><%= g.getName()%></td>
             </tr>
             <tr>
                 <td>E-mail</td>
@@ -59,6 +62,13 @@
 	<%} %>
 		</div>
 	</div>
+		<div class="text-center">
+		<a class="btn btn-primary" href="/Show?start=<%=0 %>">처음</a>
+		<a class="btn btn-primary" href="/Show?start=<%=start-1 %>">이전</a>
+		<a><%=start+1%></a>
+		<a class="btn btn-primary" href="/Show?start=<%=start+1 %>">다음</a>
+		<a class="btn btn-primary" href="/Show?start=<%=4 %>">마지막</a>
+		</div>
 		<div class="text-center">
 			<a class="btn btn-primary" href="/chap09/dbgb_write.html">글쓰기</a>
 		</div>
