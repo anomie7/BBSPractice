@@ -39,30 +39,30 @@ public class ShowServlet extends HttpServlet {
 		if(list == null) {
 			PrintWriter out = response.getWriter();
 			out.println("<h1>게시물을 조회할 수 없습니다.<h2>");
+			response.sendRedirect("/");
 		}
 		
-		int startrow;
-		if(request.getParameter("start") == null || Integer.parseInt(request.getParameter("start")) == 0 ) {
-			startrow = 0;
+		int row = 2;
+		int cnt = list.size();
+		int totalpage = cnt / row;
+		if(cnt % row > 0) totalpage++;
+		
+		
+		int now;
+		if(request.getParameter("now") == null || Integer.parseInt(request.getParameter("now")) == 0 ) {
+			now = 0;
 		}else {
-			startrow = Integer.parseInt(request.getParameter("start"));
+			now = Integer.parseInt(request.getParameter("now"));
 		}
 		
-		logger.debug(startrow + "");
+//		logger.debug(startrow + "");
 		
-		int showrow = 2;
-		int endrow = startrow + showrow;
-		
-		
-		list = list.subList(startrow, endrow);
-		
-		for(GuestBoard g : list) {
-			logger.debug(g.getName() + " " + g.getEmail());
-		}
 		
 		RequestDispatcher dispatcher =  request.getRequestDispatcher("dbgb_show.jsp");
 										request.setAttribute("list", list);
-										request.setAttribute("start", startrow);
+										request.setAttribute("totalpage", totalpage);
+										request.setAttribute("row", row);
+										request.setAttribute("now", now);
 		dispatcher.forward(request, response);
 	}
 }
