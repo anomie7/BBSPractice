@@ -26,6 +26,12 @@
 	int id = Integer.parseInt(request.getParameter("id"));
 	System.out.println(id);
 	FreeBoard fb = null;
+	String nowpage;
+	if(request.getParameter("nowpage") == null){
+		nowpage = "0";
+	}else{
+		nowpage = request.getParameter("nowpage");
+	}
 	
 	try{
 		MySqlConn sqc = new MySqlConn();
@@ -57,7 +63,7 @@ pre {border: 0; background-color: transparent;}
 <script>
 function delecheck(){
 	if(confirm("정말 삭제하시겠습니까?")){
-		location.href = "/chap10/freeboard_del.jsp?id=<%=id%>&nowpage=<%=request.getParameter("nowpage")%>";
+		location.href = "/chap10/freeboard_del.jsp?id=<%=id%>&nowpage=<%=nowpage%>";
 	}else{
 		return false;
 	}
@@ -98,9 +104,9 @@ function delecheck(){
 				</tr>
 			</table>
 			<div class="text-right">
-				<a class="btn btn-primary" href="/chap10/freeboard_upd.jsp?id=<%=id%>&nowpage=<%=request.getParameter("nowpage")%>">수정</a>
+				<a class="btn btn-primary" href="/chap10/freeboard_upd.jsp?id=<%=id%>&nowpage=<%=nowpage%>">수정</a>
 				<a class="btn btn-primary" onclick="delecheck()">삭제</a>
-				<a class="btn btn-primary" href="/chap10/freeboard_list.jsp?nowpage=<%=request.getParameter("nowpage")%>">목록으로</a>
+				<a class="btn btn-primary" href="/chap10/freeboard_list.jsp?nowpage=<%=nowpage%>">목록으로</a>
 			</div>
 		</div>
 	</div>

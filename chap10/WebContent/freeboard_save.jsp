@@ -69,5 +69,5 @@
 		out.print(e.getMessage());
 	}
 	
-	response.sendRedirect("freeboard_write.html");
+	response.sendRedirect("freeboard_read.jsp?id=" + id);
 %>
