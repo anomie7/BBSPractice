@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PersonMapper">
+	<!-- <resultMap type="com.chap10.vo.Person" id="result">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap> -->
+	
+	<select id="selectAll" resultType="com.chap10.vo.Person">
+		SELECT * FROM person
+	</select>
+	
+	<select id="selectById" parameterType="int" resultType="com.chap10.vo.Person">
+		SELECT * FROM person WHERE id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="com.chap10.vo.Person" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO person (name) VALUES (#{name});
+	</insert>
+	
+	<update id="update" parameterType="com.chap10.vo.Person">
+		UPDATE person
+		SET name = #{name}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE from person WHERE id = #{id}
+	</delete>
+	
+</mapper>

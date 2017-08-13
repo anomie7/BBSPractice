@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FreeBoardMapper">
+	<select id="selectAll" resultType="com.chap10.domain.fboard.FreeBoard">
+		SELECT * FROM freeboard order by masterId desc, replynum, step, id
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.chap10.domain.fboard.FreeBoard">
+		select * from freeboard where id = #{id}
+	</select>
+	<update id="updateReadCount" parameterType="com.chap10.domain.fboard.FreeBoard">
+		update freeboard set readcount = #{readcount} where id = #{id}
+	</update>
+	<update id="update" parameterType="com.chap10.domain.fboard.FreeBoard">
+		update freeboard set name = #{name}, email= #{email}, subject = #{subject}, content = #{content} where id = #{id}
+	</update>
+	<insert id="insert" parameterType="com.chap10.domain.fboard.FreeBoard">
+		insert into freeboard(id, name, password, email, subject ,content, inputdate, masterid) 
+		values(#{id}, #{name}, #{password}, #{email}, #{subject}, #{content}, #{inputdate}, #{masterid} )
+	</insert>
+</mapper>

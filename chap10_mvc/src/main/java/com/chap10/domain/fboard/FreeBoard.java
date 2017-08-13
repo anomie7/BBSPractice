@@ -2,6 +2,7 @@ package com.chap10.domain.fboard;
 
 public class FreeBoard {
 	private int id;
+	private String password;
 	private String email;
 	private String subject;
 	private String name;
@@ -12,40 +13,23 @@ public class FreeBoard {
 	private int masterid;
 	private int replynum;
 	
-	public FreeBoard(String name, String inputdate, int readcount, String content, String subject) {
+	
+	public FreeBoard(int id, String password, String email, String subject, String name, String inputdate,
+			String content, int readcount, int step, int masterid, int replynum) {
 		super();
-		this.name = name;
-		this.inputdate = inputdate;
-		this.readcount = readcount;
-		this.content = content;
-		this.subject = subject;
-	}
-
-	public FreeBoard(String email, String subject, String name, String content) {
-		super();
+		this.id = id;
+		this.password = password;
 		this.email = email;
 		this.subject = subject;
 		this.name = name;
+		this.inputdate = inputdate;
 		this.content = content;
-	}
-
-	public FreeBoard(int id, String subject, String name, String inputdate, int readcount) {
-		this.id = id;
-		this.subject = subject;
-		this.name = name;
-		this.inputdate = inputdate;
-		this.readcount = readcount;
-	}
-	
-	public FreeBoard(int id, String subject, String name, String inputdate, int readcount, int step) {
-		this.id = id;
-		this.subject = subject;
-		this.name = name;
-		this.inputdate = inputdate;
 		this.readcount = readcount;
 		this.step = step;
+		this.masterid = masterid;
+		this.replynum = replynum;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -113,6 +97,75 @@ public class FreeBoard {
 	public void setStep(int step) {
 		this.step = step;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((inputdate == null) ? 0 : inputdate.hashCode());
+		result = prime * result + masterid;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + readcount;
+		result = prime * result + replynum;
+		result = prime * result + step;
+		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FreeBoard other = (FreeBoard) obj;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (id != other.id)
+			return false;
+		if (inputdate == null) {
+			if (other.inputdate != null)
+				return false;
+		} else if (!inputdate.equals(other.inputdate))
+			return false;
+		if (masterid != other.masterid)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (readcount != other.readcount)
+			return false;
+		if (replynum != other.replynum)
+			return false;
+		if (step != other.step)
+			return false;
+		if (subject == null) {
+			if (other.subject != null)
+				return false;
+		} else if (!subject.equals(other.subject))
+			return false;
+		return true;
+	}
 	
 }
