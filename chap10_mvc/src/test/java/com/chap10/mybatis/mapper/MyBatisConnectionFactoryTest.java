@@ -39,14 +39,14 @@ public class MyBatisConnectionFactoryTest {
 	
 	@Test
 	public void update() throws Exception {
-		Person person = new Person(1, "삼촌");
+		Person person = new Person(1, "삼촌", "sam@magic", "경기도 안양");
 		session.update("update",person);
 		logger.debug(session.selectOne("selectById", 1).toString());
 	}
 	
 	@Test
 	public void insert() throws Exception {
-		Person person = new Person(0, "김민우");
+		Person person = new Person(0, "김민우", "dbs8481@naver.com", "대구 수성구 만촌3동");
 		session.insert("insert", person);
 	}
 }

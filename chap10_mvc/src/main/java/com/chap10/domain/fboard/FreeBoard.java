@@ -14,6 +14,20 @@ public class FreeBoard {
 	private int replynum;
 	
 	
+	
+	public FreeBoard(int id, String password, String email, String subject, String name, String inputdate,
+			String content, int masterid) {
+		this.id = id;
+		this.password = password;
+		this.email = email;
+		this.subject = subject;
+		this.name = name;
+		this.inputdate = inputdate;
+		this.content = content;
+		this.masterid = masterid;
+	}
+
+
 	public FreeBoard(int id, String password, String email, String subject, String name, String inputdate,
 			String content, int readcount, int step, int masterid, int replynum) {
 		super();
@@ -30,52 +44,27 @@ public class FreeBoard {
 		this.replynum = replynum;
 	}
 
+
 	public int getId() {
 		return id;
 	}
+
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getSubject() {
-		return subject;
+
+
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getInputdate() {
-		return inputdate;
-	}
-
-	public void setInputdate(String inputdate) {
-		this.inputdate = inputdate;
-	}
-
-	public int getReadcount() {
-		return readcount;
-	}
-
-	public void setReadcount(int readcount) {
-		this.readcount = readcount;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -90,13 +79,103 @@ public class FreeBoard {
 		this.email = email;
 	}
 
+
+
+	public String getSubject() {
+		return subject;
+	}
+
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public String getInputdate() {
+		return inputdate;
+	}
+
+
+
+	public void setInputdate(String inputdate) {
+		this.inputdate = inputdate;
+	}
+
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+
+	public int getReadcount() {
+		return readcount;
+	}
+
+
+
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
+	}
+
+
+
 	public int getStep() {
 		return step;
 	}
 
+
+
 	public void setStep(int step) {
 		this.step = step;
 	}
+
+
+
+	public int getMasterid() {
+		return masterid;
+	}
+
+
+
+	public void setMasterid(int masterid) {
+		this.masterid = masterid;
+	}
+
+
+
+	public int getReplynum() {
+		return replynum;
+	}
+
+
+
+	public void setReplynum(int replynum) {
+		this.replynum = replynum;
+	}
+
+
 
 	@Override
 	public int hashCode() {

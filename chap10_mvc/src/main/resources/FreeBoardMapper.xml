@@ -8,7 +8,7 @@
 	<select id="selectById" parameterType="int" resultType="com.chap10.domain.fboard.FreeBoard">
 		select * from freeboard where id = #{id}
 	</select>
-	<update id="updateReadCount" parameterType="com.chap10.domain.fboard.FreeBoard">
+	<update id="updateReadCount" parameterType="com.chap10.domain.fboard.FreeBoard" useGeneratedKeys="true" keyProperty="id">
 		update freeboard set readcount = #{readcount} where id = #{id}
 	</update>
 	<update id="update" parameterType="com.chap10.domain.fboard.FreeBoard">
@@ -16,6 +16,9 @@
 	</update>
 	<insert id="insert" parameterType="com.chap10.domain.fboard.FreeBoard">
 		insert into freeboard(id, name, password, email, subject ,content, inputdate, masterid) 
-		values(#{id}, #{name}, #{password}, #{email}, #{subject}, #{content}, #{inputdate}, #{masterid} )
+		values(#{id}, #{name}, #{password}, #{email}, #{subject}, #{content}, #{inputdate}, #{masterid})
 	</insert>
+	<delete id="deletef" parameterType="int">
+		delete from freeboard where id = #{id}
+	</delete>
 </mapper>

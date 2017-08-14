@@ -25,14 +25,14 @@ public class FreeBoardTest {
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		session = sqlSessionFactory.openSession();
-		testfb = new FreeBoard(5, "password", "minu@dbs8481", "응", "테스트", null, "테스트", 0, 0, 5, 0);
+		testfb = new FreeBoard(5, "password", "minu@ddd", "테스트", "테스트", "2011", "테스트", 0, 0, 0, 0);
 	}
 	
 	@Test
 	public void selectAll() throws Exception {
 		List<FreeBoard> list = session.selectList("selectAll");
 		for (FreeBoard freeBoard : list) {
-			logger.debug(freeBoard.getSubject());
+			logger.debug(freeBoard.getId() + " " + freeBoard.getSubject());
 		}
 	}
 	
@@ -44,17 +44,27 @@ public class FreeBoardTest {
 	
 	@Test
 	public void updateReadCount() throws Exception {
-		session.update("updateReadCount", testfb);
+		session.update("FreeBoardMapper.updateReadCount", testfb);
+		session.commit();
 	}
 	
 	@Test
 	public void update() throws Exception {
-		session.update("update", testfb);
+		session.update("FreeBoardMapper.update", testfb);
+		session.commit();
 	}
 	
 	@Test
 	public void insert() throws Exception {
-		FreeBoard upfb = new FreeBoard(100, "test", "test@test", "test", "test", "1011", "test", 0, 0, 0, 0);
-		session.insert("insert", upfb);
+		int n = session.insert("FreeBoardMapper.insert", testfb);
+		logger.debug(n + "");
+		session.commit();
+	}
+	
+	@Test
+	public void delete() throws Exception {
+		int n = session.delete("FreeBoardMapper.deletef", 5);
+		logger.debug(n + "");
+		session.commit();
 	}
 }

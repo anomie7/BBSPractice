@@ -16,12 +16,12 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.chap10.vo.Person" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO person (name) VALUES (#{name});
+		INSERT INTO person (name, email, address) VALUES (#{name}, #{email}, #{address});
 	</insert>
 	
 	<update id="update" parameterType="com.chap10.vo.Person">
 		UPDATE person
-		SET name = #{name}
+		SET name = #{name}, email = #{email}, address = #{address}
 		WHERE id = #{id}
 	</update>
 	
