@@ -6,8 +6,11 @@ public class FreeBoard {
 	private String subject;
 	private String name;
 	private String inputdate;
-	private int readcount;
 	private String content;
+	private int readcount;
+	private int step;
+	private int masterid;
+	private int replynum;
 	
 	public FreeBoard(String name, String inputdate, int readcount, String content, String subject) {
 		super();
@@ -17,8 +20,6 @@ public class FreeBoard {
 		this.content = content;
 		this.subject = subject;
 	}
-	
-	
 
 	public FreeBoard(String email, String subject, String name, String content) {
 		super();
@@ -34,6 +35,15 @@ public class FreeBoard {
 		this.name = name;
 		this.inputdate = inputdate;
 		this.readcount = readcount;
+	}
+	
+	public FreeBoard(int id, String subject, String name, String inputdate, int readcount, int step) {
+		this.id = id;
+		this.subject = subject;
+		this.name = name;
+		this.inputdate = inputdate;
+		this.readcount = readcount;
+		this.step = step;
 	}
 	
 	public int getId() {
@@ -95,5 +105,14 @@ public class FreeBoard {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public int getStep() {
+		return step;
+	}
+
+	public void setStep(int step) {
+		this.step = step;
+	}
+	
 	
 }

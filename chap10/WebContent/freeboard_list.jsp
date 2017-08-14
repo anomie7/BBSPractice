@@ -8,7 +8,7 @@
 	request.setCharacterEncoding("UTF-8");
 %>
 <%
-	final String SQL = "select id, name, subject, inputdate, readcount from freeboard order by id desc";
+	final String SQL = "select * from freeboard order by masterid desc, replynum, step, id";
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -22,7 +22,7 @@
 		
 		while(rs.next()){
 			FreeBoard fb = new FreeBoard(rs.getInt("id"), rs.getString("subject"),rs.getString("name"),
-					rs.getString("inputdate").substring(0, 9),rs.getInt("readcount") );
+					rs.getString("inputdate").substring(0, 9),rs.getInt("readcount"),rs.getInt("step"));
 			list.add(fb);
 		}
 	}catch(SQLException e){
@@ -50,6 +50,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+function check(){
+	with(document.megsearch){
+		if(sval.value.length == 0){
+			alert("검색어를 입력해주세요!");
+			sval.focus();
+			return false;
+		}
+		document.megsearch.submit();
+	}
+}
+
+</script>
 </head>
 <body>
 	<div class="container">
@@ -70,7 +83,16 @@
 				for(int i = ((totalpage-1)*row); i < list.size(); i++){ %>
 				<tr>
 					<td><%=list.get(i).getId() %></td>
-					<td><a href="/chap10/freeboard_read.jsp?id=<%=list.get(i).getId()%>&nowpage=<%=nowpage%>"><%=list.get(i).getSubject()%></a></td>
+					<%if(list.get(i).getStep() > 0){ %>
+					<td class="text-left">
+					<a href="/chap10/freeboard_read.jsp?id=<%=list.get(i).getId()%>&nowpage=<%=nowpage%>">
+					<%for(int k = 0; k < list.get(i).getStep(); k++){ out.print("&nbsp;&nbsp;");}%>
+					<%=list.get(i).getSubject()%></a></td>
+					<%}else{ %>
+					<td class="text-left">
+					<a href="/chap10/freeboard_read.jsp?id=<%=list.get(i).getId()%>&nowpage=<%=nowpage%>">
+					<%=list.get(i).getSubject()%></a></td>
+					<%} %>
 					<td><%=list.get(i).getName() %></td>
 					<td><%=list.get(i).getInputdate() %></td>
 					<td><%=list.get(i).getReadcount() %></td>
@@ -80,9 +102,16 @@
 				for(int j = nowpage * row; j < nowpage * row + row; j++ ){ %>
 				<tr>
 					<td><%=list.get(j).getId() %></td>
-					<td class="text-center">
+					<%if(list.get(j).getStep() > 0){ %>
+					<td class="text-left">
+					<a href="/chap10/freeboard_read.jsp?id=<%=list.get(j).getId()%>&nowpage=<%=nowpage%>">
+					<%for(int i = 0; i < list.get(j).getStep(); i++){ out.print("&nbsp;&nbsp;");}%>
+					<%=list.get(j).getSubject()%></a></td>
+					<%}else{ %>
+					<td class="text-left">
 					<a href="/chap10/freeboard_read.jsp?id=<%=list.get(j).getId()%>&nowpage=<%=nowpage%>">
 					<%=list.get(j).getSubject()%></a></td>
+					<%} %>
 					<td><%=list.get(j).getName() %></td>
 					<td><%=list.get(j).getInputdate() %></td>
 					<td><%=list.get(j).getReadcount() %></td>
@@ -109,6 +138,27 @@
 			<div class="text-center">
 				<a class="btn btn-primary" href="/chap10/freeboard_write.html">글쓰기</a>
 			</div>
+		<div class="text-center">
+			<form method="post" name="megsearch" action="freeboard_search.jsp">
+				<span class="col-sm-4">
+				<select class="form-control" name="stype">
+						<option value="1">이름</option>
+						<option value="2">제목</option>
+						<option value="3">내용</option>
+						<option value="4">이름 + 제목</option>
+						<option value="5">이름 + 내용</option>
+						<option value="6">제목 + 내용</option>
+						<option value="7">이름 + 제목 + 내용</option>
+					</select>
+				</span>
+				<div class="input-group col-md-6">
+ 				<input type="text" name="sval" class="form-control" placeholder="검색 키워드를 입력하세요!">
+  				<span class="input-group-btn">
+					<button class="btn btn-secondary" onClik="check()">찾기</button>
+  				</span>
+  				</div>
+			</form>
+		</div>
 		</div>
 	</div>
 </body>

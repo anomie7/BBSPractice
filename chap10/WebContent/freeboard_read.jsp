@@ -104,6 +104,7 @@ function delecheck(){
 				</tr>
 			</table>
 			<div class="text-right">
+				<a class="btn btn-primary" href="/chap10/freeboard_rwrite.jsp?id=<%=id%>&nowpage=<%=nowpage%>">답글</a>
 				<a class="btn btn-primary" href="/chap10/freeboard_upd.jsp?id=<%=id%>&nowpage=<%=nowpage%>">수정</a>
 				<a class="btn btn-primary" onclick="delecheck()">삭제</a>
 				<a class="btn btn-primary" href="/chap10/freeboard_list.jsp?nowpage=<%=nowpage%>">목록으로</a>
