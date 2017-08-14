@@ -55,6 +55,7 @@
 	}else{
 		response.sendRedirect("freeboard_list.jsp");
 	}
+	
 	if (what < 4) {
 		try {
 			cond2 = "%" + val + "%";
@@ -176,26 +177,9 @@ function check(){
 				%>
 				<tr>
 					<td><%=list.get(i).getId()%></td>
-					<%
-						if (list.get(i).getStep() > 0) {
-					%>
-					<td class="text-left"><a
-						href="/chap10/freeboard_read.jsp?id=<%=list.get(i).getId()%>&nowpage=<%=nowpage%>">
-							<%
-								for (int k = 0; k < list.get(i).getStep(); k++) {
-												out.print("&nbsp;&nbsp;");
-											}
-							%>
-							<%=list.get(i).getSubject()%></a></td>
-					<%
-						} else {
-					%>
 					<td class="text-left"><a
 						href="/chap10/freeboard_read.jsp?id=<%=list.get(i).getId()%>&nowpage=<%=nowpage%>">
 							<%=list.get(i).getSubject()%></a></td>
-					<%
-						}
-					%>
 					<td><%=list.get(i).getName()%></td>
 					<td><%=list.get(i).getInputdate()%></td>
 					<td><%=list.get(i).getReadcount()%></td>
@@ -207,26 +191,9 @@ function check(){
 				%>
 				<tr>
 					<td><%=list.get(j).getId()%></td>
-					<%
-						if (list.get(j).getStep() > 0) {
-					%>
-					<td class="text-left"><a
-						href="/chap10/freeboard_read.jsp?id=<%=list.get(j).getId()%>&nowpage=<%=nowpage%>">
-							<%
-								for (int i = 0; i < list.get(j).getStep(); i++) {
-												out.print("&nbsp;&nbsp;");
-											}
-							%>
-							<%=list.get(j).getSubject()%></a></td>
-					<%
-						} else {
-					%>
 					<td class="text-left"><a
 						href="/chap10/freeboard_read.jsp?id=<%=list.get(j).getId()%>&nowpage=<%=nowpage%>">
 							<%=list.get(j).getSubject()%></a></td>
-					<%
-						}
-					%>
 					<td><%=list.get(j).getName()%></td>
 					<td><%=list.get(j).getInputdate()%></td>
 					<td><%=list.get(j).getReadcount()%></td>
@@ -237,7 +204,7 @@ function check(){
 			</table>
 			<div class="text-center">
 				<a class="btn btn-primary"
-					href="/chap10/freeboard_search.jsp?nowpage=0&what=<%=what%>&val=<%=val%>">처음</a>
+					href="/chap10/freeboard_search.jsp?nowpage=0&stype=<%=what%>&sval=<%=val%>">처음</a>
 				<%
 					if (nowpage == 0) {
 				%>
@@ -246,7 +213,7 @@ function check(){
 					} else {
 				%>
 				<a class="btn btn-primary"
-					href="/chap10/freeboard_search.jsp?nowpage=<%=nowpage - 1%>&what=<%=what%>&val=<%=val%>">이전</a>
+					href="/chap10/freeboard_search.jsp?nowpage=<%=nowpage - 1%>&stype=<%=what%>&sval=<%=val%>">이전</a>
 				<%
 					}
 				%>
@@ -265,12 +232,12 @@ function check(){
 					} else {
 				%>
 				<a class="btn btn-primary"
-					href="/chap10/freeboard_search.jsp?nowpage=<%=nowpage + 1%>&what=<%=what%>&val=<%=val%>">다음</a>
+					href="/chap10/freeboard_search.jsp?nowpage=<%=nowpage + 1%>&stype=<%=what%>&sval=<%=val%>">다음</a>
 				<%
 					}
 				%>
 				<a class="btn btn-primary"
-					href="/chap10/freeboard_search.jsp?nowpage=<%=totalpage - 1%>&what=<%=what%>&val=<%=val%>">마지막</a>
+					href="/chap10/freeboard_search.jsp?nowpage=<%=totalpage - 1%>&stype=<%=what%>&sval=<%=val%>">마지막</a>
 			</div>
 			<div class="text-center">
 				<a class="btn btn-primary" href="/chap10/freeboard_write.html">글쓰기</a>
