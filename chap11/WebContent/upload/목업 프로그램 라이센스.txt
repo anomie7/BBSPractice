@@ -1,0 +1,12 @@
+* 이름
+NGEN
+
+* Key
+eJzzzU/OLi0odswsqvFzd/WrsUQCNc41hmBRAO9oC9s=
+
+
+
+6.12(월) 시스템 자원 관리 소프트웨어 시스템 운용 이론 + 실습
+6.13 ~ 6.14 (목업)
+6.15 프로젝트 계획 (risk 분석)
+6.19 이후 bcp (형상관리), git, getit.
