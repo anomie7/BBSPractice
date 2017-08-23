@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function check(f){
+            blank = false;
+            for(i=0; i<f.elements.length;i++){
+                if(f.elements[i].value == "")
+                    if(f.elements[i].name != "large")
+                    blank= true;
+            }
+            if(blank == true)
+                alert("모든 항목을 입력하셔야합니다.");
+            else
+                f.submit();
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container col-md-5 col-md-offset-3" style="padding-top: 30px; padding-bottom: 10px">
+        <a href="main.html">메인으로</a>
+        <form class="form-group" action="product_save.jsp" method="post" enctype="multipart/form-data">
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2" style="text-align: center">상품 올리기</th>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                    <td><input class="form-control" type="text" name="wname"></td>
+                </tr>
+                <tr>
+                    <th>상품분류</th>
+                    <td>
+                        <select class="form-control" name="category">
+                            <option value="11">가구</option>
+                            <option value="22">전기/전자</option>
+                            <option value="33">부엌용품</option>
+                            <option value="44">의류</option>
+                            <option value="55">보석 및 악세서리</option>
+                            <option value="66">헬스기구</option>
+                            <option value="77">컴퓨터 관련</option>
+                            <option value="88">기타</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>상품명</th>
+                    <td><input class="form-control" type="text" name="pname" size="50"></td>
+                </tr>
+                <tr>
+                    <th>제조원</th>
+                    <td><input class="form-control" type="text" name="sname" size="50"></td>
+                </tr>
+                <tr>
+                    <th>시중가</th>
+                    <td><input class="form-control" type="text" name="price"></td>
+                </tr>
+                <tr>
+                    <th>판매가</th>
+                    <td><input class="form-control" type="text" name="dprice"></td>
+                </tr>
+                <tr>
+                    <th>입고수량</th>
+                    <td><input class="form-control" type="text" name="stock"></td>
+                </tr>
+                <tr>
+                    <th>작은 이미지</th>
+                    <td><input class="file" type="file" name="smail"></td>
+                </tr>
+                <tr>
+                    <th>큰 이미지</th>
+                    <td><input class="file" type="file" name="large"></td>
+                </tr>
+                <tr>
+                    <th colspan="2"  style="text-align: center">상품내용</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea class="textarea" name="description" rows="5" cols="90"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center" colspan="2">
+                        <input class="btn btn-primary" type="button" value="저장" onclick="check(this.form)">
+                        <input class="btn btn-primary" type="reset" value="다시쓰기">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>                                                                                                               
+</body>
+</html>
