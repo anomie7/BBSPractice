@@ -13,6 +13,7 @@ public class ProductVO {
 	private String description;
 	private String small;
 	private String large;
+	private int quantity;
 
 	// 생성자(모든 필드를 포함)
 	public ProductVO(long id, String category, String wname, String pname, String sname, int price, int downprice,
@@ -57,6 +58,19 @@ public class ProductVO {
 		this.description = description;
 		this.small = small;
 		this.large = large;
+	}
+	
+	//장바구니용 생성자
+	public ProductVO(long id, String category, String pname, String sname, int downprice, String inputdate, int stock, int quantity) {
+		super();
+		this.id = id;
+		this.category = category;
+		this.pname = pname;
+		this.sname = sname;
+		this.downprice = downprice;
+		this.inputdate = inputdate;
+		this.stock = stock;
+		this.quantity = quantity;
 	}
 
 	public long getId() {
@@ -154,11 +168,19 @@ public class ProductVO {
 	public void setLarge(String large) {
 		this.large = large;
 	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductVO [id=" + id + ", category=" + category + ", wname=" + wname + ", pname=" + pname + ", sname="
 				+ sname + ", price=" + price + ", downprice=" + downprice + ", inputdate=" + inputdate + ", stock="
-				+ stock + ", description=" + description + ", small=" + small + ", large=" + large + "]";
+				+ stock + ", description=" + description + ", small=" + small + ", large=" + large + "]," + "quantity=" + quantity;
 	}
 }
