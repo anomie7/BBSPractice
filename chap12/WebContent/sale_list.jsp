@@ -15,6 +15,8 @@
 	ArrayList<ProductVO> list = new ArrayList<ProductVO>();
 	long id = 0;
 	int qty = 0;
+	int totalPrice = 0;
+	int count = 0;
 	String[] a = session.getValueNames();
 	
 	for(int i = 0; i < a.length; i++){
@@ -41,6 +43,7 @@
 	for(ProductVO product : list){
 		System.out.println(product.toString());
 	}
+	count = list.size();
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +55,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    	function setvalue(f){
+    		f.quantity.value = 0;
+    		f.submit();
+    	}
+    </script>
 </head>
 <body>
     <div class="container">
@@ -74,23 +83,26 @@
                     <td><%=list.get(i).getPname()%></td>
                     <td><%=list.get(i).getSname()%></td>
                     <td>
-                        <form action="">
+                        <form method="post" action="sale_upd.jsp">
                             <span class="input-group">
                                 <input type="text" name="quantity" id="onum" value="<%=list.get(i).getQuantity()%>">개
+                                <input type="hidden" name="id" value="<%=list.get(i).getId()%>">
                                 <input type="submit" value="수정">
-                                <input type="submit" value="삭제">
+                                <input type="button" value="삭제" onclick="setvalue(this.form);">
                             </span>
                         </form>
                     </td>
                     <td><%=list.get(i).getDownprice()%></td>
                     <td><%=list.get(i).getDownprice() * list.get(i).getQuantity()%></td>
                 </tr>
-                <%} %>
+                <%totalPrice += ( list.get(i).getDownprice() * list.get(i).getQuantity()); 
+                  System.out.println(totalPrice + " " + count);}  %>
             </table>
         </div>
         <div class="btn-group" style="padding-left: 400px;">
                 <a class="btn btn-default" href="main.html">메인으로</a>
                 <a class="btn btn-default" href="shop_list.jsp">계속 쇼핑하기</a>
+                <a class="btn btn-default" href="order.jsp?totalPrice=<%=totalPrice%>&count=<%=count%>">주문하기</a>
             </div>
     </div>
 </body>
