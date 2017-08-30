@@ -1,0 +1,125 @@
+<%@page import="java.util.*"%>
+<%@page import="com.addrprj.domain.AddrVO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.addrprj.util.JDBCUtill"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	final String selectById = "select *from addrBook where id = ?";
+	AddrVO vo = null;
+	try{
+		conn = JDBCUtill.getConnection();
+		pstmt = conn.prepareStatement(selectById);
+		pstmt.setInt(1, Integer.parseInt(request.getParameter("id")));
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()){
+		vo = new AddrVO();
+		vo.setId(rs.getInt("id"));
+		vo.setEmail(rs.getString("email"));
+		vo.setName(rs.getString("name"));
+		vo.setTel(rs.getString("tel"));
+		vo.setBirth(rs.getString("birth"));
+		vo.setComdept(rs.getString("comdept"));
+		vo.setMemo(rs.getString("memo"));
+		}
+	}catch(SQLException e){
+		System.out.println(e.getMessage());
+	}finally{
+		JDBCUtill.close(rs, pstmt, conn);
+	}
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    function check(){
+    	var password = prompt("비밀번호를 입력해주세요.");
+    	
+    	if(password == 1234){
+    		var isDelete = confirm("정말 삭제하시겠어요?");
+    		if(isDelete){
+	    		location.href = "deleteProcess.jsp?id=<%=vo.getId()%>";
+    		}
+    	}else{
+    		alert("비밀번호가 틀렸어요.")
+    	}
+    	
+    }
+    
+    function checkpass(){
+	var password1 = prompt("비밀번호를 입력해주세요.");
+    
+    	if(password1 == 1234){
+    		location.href = "deleteProcess.jsp?id=<%=vo.getId()%>";
+    		return true;
+    	}else{
+    		alert("비밀번호가 틀렸어요.")
+    		return false;
+    	}
+    	
+    }
+    </script>
+</head>
+
+<body>
+    <div class="containt col-md-4 col-md-offset-4">
+        <div class="page-header">
+            <h1>주소록 등록 화면</h1>
+            <a href="addr_list.jsp">주소록 목록으로</a>
+        </div>
+        <div>
+            <form class="form-group  text-center" action="updateProcess.jsp" method="post" onsubmit="return checkpass()">
+                <table class="table">
+                    <tr>
+                        <td>이름</td>
+                        <td><input type="text" name="name" value="<%=vo.getName()%>"></td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td><input type="text" name="email" value="<%=vo.getEmail()%>"></td>
+                    </tr>
+                    <tr>
+                        <td>전화번호</td>
+                        <td><input type="text" name="tel" value="<%=vo.getTel()%>"></td>
+                    </tr>
+                    <tr>
+                        <td>생일</td>
+                        <td><input type="text" name="birth" value="<%=vo.getBirth() %>"></td>
+                    </tr>
+                    <tr>
+                        <td>회사</td>
+                        <td><input type="text" name="comdept" value="<%=vo.getComdept() %>"></td>
+                    </tr>
+                    <tr>
+                        <td>메모</td>
+                        <td><input type="text" name="memo" value="<%=vo.getMemo()%>">
+                        	<input type="hidden" name="id" value="<%=vo.getId()%>">
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td colspan="2">
+                            <input class="btn btn-default" type="submit" value="수정">
+                            <a class="btn btn-default" onclick="check()">삭제</a>
+                            <a href="addr_list.jsp" class="btn btn-default">취소</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
