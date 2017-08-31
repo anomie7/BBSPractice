@@ -1,40 +1,12 @@
+<%@page import="com.addrprj.*"%>
 <%@page import="java.util.*"%>
 <%@page import="com.addrprj.domain.AddrVO"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="com.addrprj.util.JDBCUtill"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	final String selectByAll = "select *from addrBook";
-	AddrVO vo = null;
-	List<AddrVO> list = new ArrayList<>();
-	try{
-		conn = JDBCUtill.getConnection();
-		pstmt = conn.prepareStatement(selectByAll);
-		rs = pstmt.executeQuery();
-		
-		while(rs.next()){
-		vo = new AddrVO();
-		vo.setId(rs.getInt("id"));
-		vo.setName(rs.getString("name"));
-		vo.setTel(rs.getString("tel"));
-		vo.setBirth(rs.getString("birth"));
-		vo.setComdept(rs.getString("comdept"));
-		vo.setMemo(rs.getString("memo"));
-		list.add(vo);
-		}
-	}catch(SQLException e){
-		System.out.println(e.getMessage());
-	}finally{
-		JDBCUtill.close(rs, pstmt, conn);
-	}
-%>
+<jsp:useBean id="sd" class="com.addrprj.dao.StudentDAO"></jsp:useBean>
+ <% 
+ 	List<AddrVO> list = sd.getList();
+ %>
 <!DOCTYPE html>
 <html lang="en">
     <head>

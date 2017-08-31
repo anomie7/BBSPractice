@@ -1,32 +1,18 @@
-<%@page import="java.sql.SQLException"%>
-<%@page import="com.addrprj.util.JDBCUtill"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8"); %>
-<%
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	int cnt = 0;
-	final String UpdateAddr = "update addrbook set name = ?, email = ?, comdept = ?, birth = ?, tel = ?, memo = ? "
-								+ "where id = ?";
-	try{
-		conn = JDBCUtill.getConnection();
-		pstmt = conn.prepareStatement(UpdateAddr);
-		pstmt.setString(1, request.getParameter("name"));
-		pstmt.setString(2, request.getParameter("email"));
-		pstmt.setString(3, request.getParameter("comdept"));
-		pstmt.setString(4, request.getParameter("birth"));
-		pstmt.setString(5, request.getParameter("tel"));
-		pstmt.setString(6, request.getParameter("memo"));
-		pstmt.setInt(7, Integer.parseInt(request.getParameter("id")));
-		cnt = pstmt.executeUpdate();
-	}catch(SQLException e){
-		System.out.println(e.getMessage());
-	}finally{
-		JDBCUtill.close(pstmt, conn);
-	}
+<jsp:useBean id="ad" class="com.addrprj.dao.StudentDAO" />
+<jsp:useBean id="vo" class="com.addrprj.domain.AddrVO" />
+<%	
+	vo.setId(Integer.parseInt(request.getParameter("id")));
+	vo.setName(request.getParameter("name"));
+	vo.setEmail(request.getParameter("email"));
+	vo.setComdept(request.getParameter("comdept"));
+	vo.setBirth(request.getParameter("birth"));
+	vo.setTel(request.getParameter("tel"));
+	vo.setMemo(request.getParameter("memo"));
 	
-	response.sendRedirect("addr_list.jsp");
+	boolean isCreate = ad.updateAddr(vo);
+	if(isCreate)
+		response.sendRedirect("addr_list.jsp");
 %>
